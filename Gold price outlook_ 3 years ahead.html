@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Gold price outlook: 3 years ahead</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;600;800&display=swap">
+<style>
+:root{--bg:#eceee8;--panel:#f7f8f4;--ink:#1c2826;--mute:#5d6b67;--line:#cfd5cc;--gold:#a8780a;--gold-bar:#c99a1e;--up:#2f7a4f;--down:#b04a3a;color-scheme:light}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#17201e;--panel:#1f2a28;--ink:#e8ece6;--mute:#9aa8a3;--line:#33423f;--gold:#e0b34a;--gold-bar:#d9aa3a;--up:#5fbf86;--down:#e08a78;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#17201e;--panel:#1f2a28;--ink:#e8ece6;--mute:#9aa8a3;--line:#33423f;--gold:#e0b34a;--gold-bar:#d9aa3a;--up:#5fbf86;--down:#e08a78;color-scheme:dark}
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Bricolage Grotesque",system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.5}
+main{max-width:1060px;margin:0 auto;padding:28px 18px 48px}
+h1{font-size:clamp(28px,5vw,44px);font-weight:800;letter-spacing:-.02em;margin:0 0 4px}
+.sub{color:var(--mute);margin:0 0 20px;max-width:62ch}
+.grid{display:grid;grid-template-columns:1fr;gap:18px}
+@media(min-width:880px){.grid{grid-template-columns:1.1fr .9fr;align-items:start}.result{position:sticky;top:16px}}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:18px}
+.factor{padding:11px 0;border-bottom:1px solid var(--line)}
+.row{display:flex;justify-content:space-between;gap:12px;align-items:baseline}
+.row label{font-weight:600}
+.wt{color:var(--mute);font-weight:400;font-size:13px}
+.val{font-variant-numeric:tabular-nums;font-weight:600;white-space:nowrap}
+.hint{color:var(--mute);font-size:13px;margin:2px 0 4px}
+input[type=range]{width:100%;accent-color:var(--gold-bar);height:28px}
+.ends{display:flex;justify-content:space-between;font-size:12px;color:var(--mute)}
+input[type=number]{width:100%;font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:8px 10px}
+.three{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:6px}
+.three span{display:block;font-size:13px;color:var(--mute);margin-bottom:4px}
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.pre{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0 4px}
+button{font:inherit;color:var(--ink);background:transparent;border:1px solid var(--line);border-radius:6px;padding:6px 12px;cursor:pointer}
+button:hover,button.on{border-color:var(--gold);color:var(--gold)}
+.price{font-size:clamp(38px,8vw,58px);font-weight:800;letter-spacing:-.03em;line-height:1.05;margin:2px 0;font-variant-numeric:tabular-nums}
+.delta{font-weight:600;font-variant-numeric:tabular-nums}
+.up{color:var(--up)}.down{color:var(--down)}
+svg{width:100%;height:auto;display:block;margin-top:10px}
+svg text{fill:var(--mute);font-size:12px;font-family:inherit}
+.tbl{width:100%;border-collapse:collapse;font-size:14px;font-variant-numeric:tabular-nums;margin-top:6px}
+.tbl th,.tbl td{text-align:right;padding:5px 4px;border-bottom:1px solid var(--line)}
+.tbl th:first-child,.tbl td:first-child{text-align:left}
+.tbl th{font-weight:600;color:var(--mute)}
+h2{font-size:16px;margin:18px 0 6px}
+.c{display:grid;grid-template-columns:120px 1fr 54px;gap:8px;align-items:center;font-size:13px;margin:5px 0}
+.cb{position:relative;height:12px}
+.cb::before{content:"";position:absolute;left:50%;top:-2px;bottom:-2px;width:1px;background:var(--mute)}
+.cb i{position:absolute;top:0;bottom:0;border-radius:3px}
+.c span:last-child{text-align:right}
+details{margin-top:14px}summary{cursor:pointer;font-weight:600}
+.wg{display:grid;grid-template-columns:1fr 80px;gap:6px 12px;align-items:center;margin-top:10px;font-size:14px}
+.note{font-size:12.5px;color:var(--mute);margin-top:16px}
+.sc{overflow-x:auto}.ex p{font-size:13.5px;margin:8px 0}.ex b{color:var(--gold)}
+</style>
+</head>
+<body>
+<main>
+<h1>Gold price outlook: 3 years ahead</h1>
+<p class="sub">Score what you expect each force to do to gold over the next three years. Each score is weighted by how much that factor usually drives the price.</p>
+<div class="grid">
+<section class="panel" id="inputs">
+<div class="three">
+<div><span>Gold price today (₹ per 10 g)</span><input type="number" id="base" value="113000" min="1" step="100"></div>
+<div><span>Max 3-year swing (%)</span><input type="number" id="swing" value="80" min="10" max="300" step="5"></div>
+</div>
+<div class="hint">Enter today’s gold price in rupees per 10 grams. The max swing is the 3-year change if every factor were fully positive or fully negative.</div>
+<details class="ex"><summary>What does the 80% swing mean?</summary>
+<p><b id="swx"></b></p>
+<p>The swing sets the scale of the whole model. Your slider scores and the weights only decide what share of the swing you get. For example, if every factor scores +5, you get the full swing. If real rates, the dollar and central banks are all positive but the rest are neutral, you get only about 55% of it (25 + 15 + 15 weights out of 100).</p>
+<p>I chose 80% because gold has had 3-year gains of 50% or more in strong bull runs, and falls of 30 to 40% in weak periods. A fully positive case is rare, so 80% is a deliberately wide ceiling.</p>
+<p><b>Suggested settings:</b> 40 to 50 for a cautious view, 80 for the default, 100 or more only for an aggressive view. The model is symmetric, so a fully negative case also falls by the same percentage, which is harsher than gold’s usual downside. If you think downside is smaller, lower the swing or use milder negative scores.</p>
+</details>
+<div class="pre" id="pre"></div>
+<div id="fs"></div>
+<details><summary>Edit factor weights</summary>
+<div class="wg" id="wg"></div>
+<div class="hint" id="wsum"></div>
+</details>
+</section>
+<aside class="panel result" aria-live="polite">
+<div class="hint">Expected gold price in 3 years (₹ per 10 g)</div>
+<div class="price" id="price"></div>
+<div class="delta" id="delta"></div>
+<svg id="chart" viewBox="0 0 600 250" role="img" aria-label="Projected gold price path with range"></svg>
+<table class="tbl"><thead><tr><th>Year</th><th>Low</th><th>Expected</th><th>High</th></tr></thead><tbody id="tb"></tbody></table>
+<div class="hint" style="margin-top:10px">All prices are in Indian rupees per 10 grams of gold.</div>
+<h2>What drives the outcome</h2>
+<div id="contrib"></div>
+<p class="note">An illustrative model built on rule-of-thumb weights. It is not a forecast or financial advice.</p>
+</aside>
+</div>
+<section class="panel" style="margin-top:18px">
+<h2 style="margin-top:0">Compare scenarios side by side</h2>
+<div class="hint">The three preset cases and your current slider settings, all using the same price, weights and swing.</div>
+<div class="sc"><table class="tbl" id="cmp"></table></div>
+</section>
+</main>
+<script>
+var F=[
+["Real interest rates",25,"Falling real rates are positive for gold; rising ones are negative."],
+["US dollar",15,"A weaker dollar is positive; a stronger dollar is negative."],
+["Central bank buying",15,"Continued heavy buying is positive; buying slowdown or selling is negative."],
+["Geopolitics and uncertainty",12,"More conflict, sanctions and market stress is positive; calm is negative."],
+["Inflation",10,"Higher or sticky inflation is positive; falling inflation is negative."],
+["Investment demand",10,"Rising ETF, bar and coin demand is positive; outflows are negative."],
+["Jewellery and industrial demand",8,"Strong demand is positive; price-driven demand drops are negative."],
+["Mine and recycled supply",3,"Tight supply is positive; a supply surge is negative."],
+["Speculation and sentiment",2,"Bullish investor mood is positive; bearish mood is negative."]
+];
+var P={Bearish:[-4,-3,-3,-3,-2,-3,-2,2,-3],Base:[1,1,3,1,1,2,0,0,1],Bullish:[4,3,4,4,3,4,2,0,3]};
+var $=function(i){return document.getElementById(i)};
+$("fs").innerHTML=F.map(function(f,i){return '<div class="factor"><div class="row"><label for="s'+i+'">'+f[0]+' <span class="wt" id="w'+i+'"></span></label><span class="val" id="v'+i+'"></span></div><div class="hint">'+f[2]+'</div><input type="range" id="s'+i+'" min="-5" max="5" step="1" value="0"><div class="ends"><span>Strongly negative</span><span>Strongly positive</span></div></div>'}).join("");
+$("wg").innerHTML=F.map(function(f,i){return '<label for="wi'+i+'">'+f[0]+'</label><input type="number" id="wi'+i+'" value="'+f[1]+'" min="0" max="100" step="1">'}).join("");
+$("pre").innerHTML=Object.keys(P).map(function(k){return '<button type="button" data-p="'+k+'">'+k+' case</button>'}).join("");
+function setP(k){P[k].forEach(function(v,i){$("s"+i).value=v});calc(k)}
+$("pre").onclick=function(e){var k=e.target.getAttribute("data-p");if(k)setP(k)};
+function usd(n){return "₹"+Math.round(n).toLocaleString("en-IN")}
+function sg(n,d){return (n>=0?"+":"−")+Math.abs(n).toFixed(d)}
+var W=[0.1,0.2,0.3,0.4];
+function calc(active){
+ var base=Math.max(1,parseFloat($("base").value)||1),sw=(parseFloat($("swing").value)||0)/100;
+ var ws=F.map(function(f,i){return Math.max(0,parseFloat($("wi"+i).value)||0)});
+ var sum=ws.reduce(function(a,b){return a+b},0)||1;
+ $("wsum").textContent="Weights total "+sum+(sum===100?".":". They are scaled to 100 automatically.");
+ var tot=0,rows=[];
+ F.forEach(function(f,i){
+  var s=parseFloat($("s"+i).value),w=ws[i]/sum;
+  var c=w*(s/5)*sw*100;tot+=c;rows.push([f[0],c]);
+  $("v"+i).textContent=(s>0?"+":s<0?"−":"")+Math.abs(s);
+  $("v"+i).className="val "+(s>0?"up":s<0?"down":"");
+  $("w"+i).textContent="("+Math.round(w*100)+"% weight)";
+ });
+ var g=1+tot/100;g=Math.max(g,0.2);
+ var pts=[0,1,2,3].map(function(t){var m=base*Math.pow(g,t/3),b=0.12*Math.sqrt(t);return {t:t,m:m,lo:m*(1-b),hi:m*(1+b)}});
+ var end=pts[3];
+ $("price").textContent=usd(end.m);
+ var d=end.m-base,ann=(Math.pow(g,1/3)-1)*100;
+ $("delta").className="delta "+(d>=0?"up":"down");
+ $("delta").textContent=(d>=0?"+":"−")+usd(Math.abs(d))+" ("+sg(tot,1)+"%) over 3 years, about "+sg(ann,1)+"% a year";
+ $("tb").innerHTML=pts.map(function(p){return "<tr><td>"+(p.t?"Year "+p.t:"Today")+"</td><td>"+usd(p.lo)+"</td><td>"+usd(p.m)+"</td><td>"+usd(p.hi)+"</td></tr>"}).join("");
+
+ var mn=Math.min.apply(null,pts.map(function(p){return p.lo}))*.95,mx=Math.max.apply(null,pts.map(function(p){return p.hi}))*1.05;
+ var X=function(t){return 60+t/3*500},Y=function(v){return 210-(v-mn)/(mx-mn)*190};
+ var up=pts.map(function(p){return X(p.t)+","+Y(p.hi)}),dn=pts.slice().reverse().map(function(p){return X(p.t)+","+Y(p.lo)});
+ $("chart").innerHTML='<polygon points="'+up.concat(dn).join(" ")+'" fill="var(--gold-bar)" opacity=".25"/>'+
+  '<polyline points="'+pts.map(function(p){return X(p.t)+","+Y(p.m)}).join(" ")+'" fill="none" stroke="var(--gold)" stroke-width="3"/>'+
+  pts.map(function(p){return '<circle cx="'+X(p.t)+'" cy="'+Y(p.m)+'" r="4" fill="var(--gold)"/><text x="'+X(p.t)+'" y="238" text-anchor="middle">'+(p.t?"Year "+p.t:"Today")+'</text>'}).join("")+
+  '<text x="'+(X(3)-4)+'" y="'+(Y(end.m)-10)+'" text-anchor="end">'+usd(end.m)+'</text>';
+ var m=Math.max(3,Math.max.apply(null,rows.map(function(r){return Math.abs(r[1])})));
+ $("contrib").innerHTML=rows.map(function(r){var pc=Math.abs(r[1])/m*50,u=r[1]>=0;
+  return '<div class="c"><span>'+r[0]+'</span><div class="cb"><i style="background:var(--'+(u?"up":"down")+');'+(u?"left:50%":"right:50%")+';width:'+pc+'%"></i></div><span>'+sg(r[1],1)+'%</span></div>'}).join("");
+ $("swx").textContent="At "+Math.round(sw*100)+"%, if every factor were fully positive, gold would reach about "+usd(base*(1+sw))+" in 3 years. If every factor were fully negative, it would fall to about "+usd(base*Math.max(1-sw,0.2))+".";
+ var cols=[["Bearish case",P.Bearish],["Base case",P.Base],["Bullish case",P.Bullish],["Your inputs",F.map(function(f,i){return parseFloat($("s"+i).value)})]];
+ var cr=cols.map(function(c){var t=0;c[1].forEach(function(s,i){t+=ws[i]/sum*(s/5)*sw*100});var gg=Math.max(1+t/100,0.2),p=base*gg;return {n:c[0],t:t,p:p,a:(Math.pow(gg,1/3)-1)*100}});
+ var line=function(l,fn){return "<tr><td>"+l+"</td>"+cr.map(function(c){return "<td>"+fn(c)+"</td>"}).join("")+"</tr>"};
+ $("cmp").innerHTML="<thead><tr><th></th>"+cr.map(function(c){return "<th>"+c.n+"</th>"}).join("")+"</tr></thead><tbody>"+line("Price in 3 years",function(c){return usd(c.p)})+line("3-year change",function(c){return sg(c.t,1)+"%"})+line("Change per year",function(c){return sg(c.a,1)+"%"})+"</tbody>";
+ document.querySelectorAll("#pre button").forEach(function(b){b.classList.toggle("on",b.getAttribute("data-p")===active)});
+}
+document.addEventListener("input",function(){calc()});
+setP("Base");
+</script>
+</body>
+</html>
